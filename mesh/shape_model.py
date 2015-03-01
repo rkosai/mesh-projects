@@ -1,5 +1,6 @@
 import copy
 import math
+from mesh_utils import MeshUtils
 
 class ShapeModel():
     def __init__(self):
@@ -50,29 +51,20 @@ class ShapeModel():
             self.triangles.append(triangle)
 
     def translate(self, dx, dy, dz):
-        for i in range(len(self.vectors)):
-            self.vectors[i][0] += dx
-            self.vectors[i][1] += dy
-            self.vectors[i][2] += dz
-
-    def _rotateVector(self, theta, index_1, index_2):
-        for i in range(len(self.vectors)):
-            j = self.vectors[i][index_1]
-            k = self.vectors[i][index_2]
-            radius = math.sqrt(math.pow(j, 2) + math.pow(k, 2))
-            angle = math.atan2(k, j)
-
-            self.vectors[i][index_1] = radius * math.cos(angle - theta)
-            self.vectors[i][index_2] = radius * math.sin(angle - theta)
-
-    def rotateY(self, theta):
-        self._rotateVector(theta, 0, 2)
+        for v in self.vectors:
+            v[0], v[1], v[2] = MeshUtils.translate_v(v, dx, dy, dz)
 
     def rotateX(self, theta):
-        self._rotateVector(theta, 2, 1)
+        for v in self.vectors:
+            v[0], v[1], v[2] = MeshUtils.rotate_v(v, theta, 2, 1)
+
+    def rotateY(self, theta):
+        for v in self.vectors:
+            v[0], v[1], v[2] = MeshUtils.rotate_v(v, theta, 0, 2)
 
     def rotateZ(self, theta):
-        self._rotateVector(theta, 1, 0)
+        for v in self.vectors:
+            v[0], v[1], v[2] = MeshUtils.rotate_v(v, theta, 1, 0)
 
     def get_triangles(self):
         return self.triangles

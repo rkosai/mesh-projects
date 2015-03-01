@@ -1,4 +1,5 @@
 import math
+import copy
 
 class MeshUtils:
 
@@ -105,4 +106,26 @@ class MeshUtils:
                     closest_distance = distance
 
         return closest_vertices
+
+    @staticmethod
+    def translate_v(vector, dx, dy, dz):
+        x = vector[0] + dx
+        y = vector[1] + dy
+        z = vector[2] + dz
+
+        return (x, y, z)
+
+    @staticmethod
+    def rotate_v(vector, theta, index_1, index_2):
+        new_vector = copy.copy(vector)
+
+        j = vector[index_1]
+        k = vector[index_2]
+        radius = math.sqrt(math.pow(j, 2) + math.pow(k, 2))
+        angle = math.atan2(k, j)
+
+        new_vector[index_1] = radius * math.cos(angle - theta)
+        new_vector[index_2] = radius * math.sin(angle - theta)
+
+        return (new_vector[0], new_vector[1], new_vector[2])
 
