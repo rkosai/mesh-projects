@@ -2,26 +2,30 @@ import math
 from mesh.shape_model import ShapeModel
 from mesh.mesh_utils import MeshUtils
 from mesh.shape_primitives import Circle
+from part import Part
 
-class TeePipe:
+class TeePipe(Part):
     POINTS = 100
 
     def __init__(self, radius):
-        self.triangles = []
+        Part.__init__(self)
 
         # basic pipes
         self.input = Circle(radius, False)
         self.input.close_vectors()
         self.input.translate(0, 0, -1)
+        self.register_external_shape(self.input)
 
         self.output = Circle(radius, True)
         self.output.close_vectors()
         self.output.translate(0, 0, 1)
+        self.register_external_shape(self.output)
 
         self.tap = Circle(radius, True)
         self.tap.close_vectors()
         self.tap.rotateY(3 * math.pi / 2)
         self.tap.translate(1, 0, 0)
+        self.register_external_shape(self.tap)
 
         # intersection lines
         int_1 = ShapeModel()
@@ -90,5 +94,3 @@ class TeePipe:
     def get_tap(self):
         return self.tap
 
-    def get_triangles(self):
-        return self.triangles

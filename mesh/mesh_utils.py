@@ -1,5 +1,4 @@
 import math
-import copy
 
 class MeshUtils:
 
@@ -116,8 +115,8 @@ class MeshUtils:
         return (x, y, z)
 
     @staticmethod
-    def rotate_v(vector, theta, index_1, index_2):
-        new_vector = copy.copy(vector)
+    def rotatev(vector, theta, index_1, index_2):
+        new_vector = [vector[0], vector[1], vector[2]]
 
         j = vector[index_1]
         k = vector[index_2]
@@ -128,4 +127,16 @@ class MeshUtils:
         new_vector[index_2] = radius * math.sin(angle - theta)
 
         return (new_vector[0], new_vector[1], new_vector[2])
+
+    @staticmethod
+    def rotatev_x(vector, theta):
+        return MeshUtils.rotatev(vector, theta, 2, 1)
+
+    @staticmethod
+    def rotatev_y(vector, theta):
+        return MeshUtils.rotatev(vector, theta, 0, 2)
+
+    @staticmethod
+    def rotatev_z(vector, theta):
+        return MeshUtils.rotatev(vector, theta, 1, 0)
 

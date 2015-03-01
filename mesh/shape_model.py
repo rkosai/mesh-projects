@@ -56,15 +56,15 @@ class ShapeModel():
 
     def rotateX(self, theta):
         for v in self.vectors:
-            v[0], v[1], v[2] = MeshUtils.rotate_v(v, theta, 2, 1)
+            v[0], v[1], v[2] = MeshUtils.rotatev_x(v, theta)
 
     def rotateY(self, theta):
         for v in self.vectors:
-            v[0], v[1], v[2] = MeshUtils.rotate_v(v, theta, 0, 2)
+            v[0], v[1], v[2] = MeshUtils.rotatev_y(v, theta)
 
     def rotateZ(self, theta):
         for v in self.vectors:
-            v[0], v[1], v[2] = MeshUtils.rotate_v(v, theta, 1, 0)
+            v[0], v[1], v[2] = MeshUtils.rotatev_z(v, theta)
 
     def get_triangles(self):
         return self.triangles
