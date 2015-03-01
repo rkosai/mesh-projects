@@ -55,16 +55,24 @@ class ShapeModel():
             self.vectors[i][1] += dy
             self.vectors[i][2] += dz
 
-    def rotateY(self, theta):
-        # Change X and Z vectors
+    def _rotateVector(self, theta, index_1, index_2):
         for i in range(len(self.vectors)):
-            x = self.vectors[i][0]
-            z = self.vectors[i][2]
-            radius = math.sqrt(math.pow(x, 2) + math.pow(z, 2))
-            angle = math.atan2(z, x)
+            j = self.vectors[i][index_1]
+            k = self.vectors[i][index_2]
+            radius = math.sqrt(math.pow(j, 2) + math.pow(k, 2))
+            angle = math.atan2(k, j)
 
-            self.vectors[i][0] = radius * math.cos(angle + theta)
-            self.vectors[i][2] = radius * math.sin(angle + theta)
+            self.vectors[i][index_1] = radius * math.cos(angle - theta)
+            self.vectors[i][index_2] = radius * math.sin(angle - theta)
+
+    def rotateY(self, theta):
+        self._rotateVector(theta, 0, 2)
+
+    def rotateX(self, theta):
+        self._rotateVector(theta, 2, 1)
+
+    def rotateZ(self, theta):
+        self._rotateVector(theta, 1, 0)
 
     def get_triangles(self):
         return self.triangles

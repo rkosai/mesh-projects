@@ -20,7 +20,7 @@ class TeePipe:
 
         self.tap = Circle(radius, True)
         self.tap.close_vectors()
-        self.tap.rotateY(math.pi / 2)
+        self.tap.rotateY(3 * math.pi / 2)
         self.tap.translate(1, 0, 0)
 
         # intersection lines
