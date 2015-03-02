@@ -74,3 +74,11 @@ class ShapeModel():
 
     def get_vectors(self):
         return self.vectors
+
+    def reverse_edges(self):
+        new_edges = []
+        for edge in self.edges:
+            p1, p2 = edge
+            new_edges.append([p1, p2])
+
+        self.edges = new_edges
