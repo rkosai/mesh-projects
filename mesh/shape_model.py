@@ -77,8 +77,8 @@ class ShapeModel():
 
     def reverse_edges(self):
         new_edges = []
-        for edge in self.edges:
+        for edge in reversed(self.edges):
             p1, p2 = edge
-            new_edges.append([p1, p2])
+            new_edges.append([p2, p1])
 
         self.edges = new_edges

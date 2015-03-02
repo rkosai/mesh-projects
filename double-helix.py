@@ -25,7 +25,7 @@ def make_pipe():
 def stitch_taps(p1, p2):
     t1 = p1.get_tap()
     t2 = p2.get_tap()
-    t1.reverse_edges()
+    t2.reverse_edges()
     return MeshUtils.stitch_shapes(t1, t2)
 
 obj = ObjectModel()
