@@ -15,6 +15,6 @@ class Polygon(ShapeModel):
 
 class Circle(Polygon):
     def __init__(self, r, up):
-        Polygon.__init__(self, r, 100, up)
+        Polygon.__init__(self, r, 50, up)
 
 

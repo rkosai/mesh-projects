@@ -5,7 +5,7 @@ from mesh.shape_primitives import Circle
 from part import Part
 
 class TeePipe(Part):
-    POINTS = 100
+    POINTS = 50
 
     def __init__(self, radius):
         Part.__init__(self)
@@ -13,18 +13,18 @@ class TeePipe(Part):
         # basic pipes
         self.input = Circle(radius, False)
         self.input.close_vectors()
-        self.input.translate(0, 0, -1)
+        self.input.translate(0, 0, -1 * radius)
         self.register_external_shape(self.input)
 
         self.output = Circle(radius, True)
         self.output.close_vectors()
-        self.output.translate(0, 0, 1)
+        self.output.translate(0, 0, radius)
         self.register_external_shape(self.output)
 
         self.tap = Circle(radius, True)
         self.tap.close_vectors()
         self.tap.rotateY(3 * math.pi / 2)
-        self.tap.translate(1, 0, 0)
+        self.tap.translate(radius, 0, 0)
         self.register_external_shape(self.tap)
 
         # intersection lines
