@@ -3,9 +3,13 @@ import math
 class MeshUtils:
 
     @staticmethod
-    def stitch_shapes(s1, s2):
+    def stitch_shapes(s1, s2, align_axis = None):
         if (s1 is None) or (s2 is None):
             print "#ERROR: Can't merge empty shape."
+
+        # align shapes
+        dx, dy, dz = MeshUtils._calculate_shift(s1, s2, align_axis)
+        s1.translate(dx, dy, dz)
 
         # stitch shapes together
         triangles = []
@@ -19,7 +23,48 @@ class MeshUtils:
             current_edge = MeshUtils._form_triangle(
                 triangles, s1, current_edge, edge_pool)
 
+        # unalign shapes
+        s1.translate(-1 * dx, -1 * dy, -1 * dz)
+
         return triangles
+
+    @staticmethod
+    def _calculate_shift(s1, s2, align_axis):
+        x1, y1, z1 = MeshUtils.find_center(s1)
+        x2, y2, z2 = MeshUtils.find_center(s2)
+        dx, dy, dz = (0, 0, 0)
+
+        if align_axis == 'X':
+            dy = y2 - y1
+            dz = z2 - z1
+        elif align_axis == 'Y':
+            dx = x2 - x1
+            dz = z2 - z1
+        elif align_axis == 'Z':
+            dx = x2 - x1
+            dy = y2 - y1
+
+        return dx, dy, dz
+
+    @staticmethod
+    def find_center(shape):
+        x, y, z = (0, 0, 0)
+        xc, yc, zc = (0, 0, 0)
+
+        for v in shape.get_vectors():
+            x += v[0]
+            y += v[1]
+            z += v[2]
+
+            xc += 1
+            yc += 1
+            zc += 1
+
+        return (
+            x / float(xc),
+            y / float(yc),
+            z / float(zc)
+        )
 
     @staticmethod
     def _form_triangle(triangles, s1, current_edge, pool):
