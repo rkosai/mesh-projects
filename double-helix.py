@@ -7,30 +7,14 @@ from mesh.object_model import ObjectModel
 from mesh.shape_model import ShapeModel
 from mesh.mesh_utils import MeshUtils
 from objects.tee_pipe import TeePipe
+from objects.joined_pipe import JoinedPipe
 
 PIPE_RADIUS = 1.2
 
 ##################################################
 
-def make_pipe():
-    p1 = TeePipe(PIPE_RADIUS)
-    p1.rotateZ(math.pi)
-    p1.translate(5, 0, 0)
-
-    p2 = TeePipe(PIPE_RADIUS)
-    p2.translate(-5, 0, 0)
-
-    return p1, p2
-
-def stitch_taps(p1, p2):
-    t1 = p1.get_tap()
-    t2 = p2.get_tap()
-    t2.reverse_edges()
-    return MeshUtils.stitch_shapes(t1, t2)
-
 obj = ObjectModel()
 
-first_left, first_right = (None, None)
 left, right = (None, None)
 
 theta = 0
@@ -39,33 +23,23 @@ for i in range(5):
     theta_distance = 2 * math.pi / 5
 
     # Make pipe
-    p1, p2 = make_pipe()
-    p1.translate(0, 0, 10 * i)
-    p2.translate(0, 0, 10 * i)
+    p = JoinedPipe(PIPE_RADIUS)
+    p.translate(0, 0, 10 * i)
+    p.rotateZ(theta)
 
-    p1.rotateZ(theta)
-    p2.rotateZ(theta)
-
-    bar_triangles = stitch_taps(p1, p2)
-
-    obj.add_triangles(
-        p1.get_triangles() +
-        p2.get_triangles() +
-        bar_triangles
-    )
+    obj.add_triangles(p.get_triangles())
 
     if (right is not None):
         obj.add_triangles(
-            MeshUtils.stitch_shapes(right, p1.get_input()) +
-            MeshUtils.stitch_shapes(left, p2.get_input())
+            MeshUtils.stitch_shapes(right, p.get_right().get_input()) +
+            MeshUtils.stitch_shapes(left, p.get_left().get_input())
         )
 
     top = 10 * i + PIPE_RADIUS
-    bottom = 10 * i - PIPE_RADIUS
     distance = 10 - 2 * PIPE_RADIUS
 
-    right = p1.get_output()
-    left = p2.get_output()
+    right = p.get_right().get_output()
+    left = p.get_left().get_output()
 
     # Make connectors
     for j in range(1, 4):

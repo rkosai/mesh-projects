@@ -7,6 +7,10 @@ class Part:
     def register_external_shape(self, shape):
         self.shapes.append(shape)
 
+    def register_external_parts(self, parts):
+        for part in parts:
+            self.shapes += part.shapes
+
     def _apply_to_vectors(self, func, params):
         for i in range(len(self.triangles)):
             new_triangle = []
@@ -19,7 +23,6 @@ class Part:
         self._apply_to_vectors(MeshUtils.translate_v, (dx, dy, dz))
         for shape in self.shapes:
             shape.translate(dx, dy, dz)
-
 
     def rotateX(self, theta):
         self._apply_to_vectors(MeshUtils.rotatev_x, (theta,))
