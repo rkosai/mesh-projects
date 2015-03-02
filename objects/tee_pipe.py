@@ -79,8 +79,8 @@ class TeePipe(Part):
 
         int_3.close_vectors()
 
-        self.triangles += MeshUtils.stitch_shapes(self.input, int_1)
-        self.triangles += MeshUtils.stitch_shapes(int_2, self.output)
+        self.triangles += MeshUtils.stitch_shapes(int_1, self.input)
+        self.triangles += MeshUtils.stitch_shapes(self.output, int_2)
         self.triangles += MeshUtils.stitch_shapes(int_3, self.tap)
 
     def get_input(self):
