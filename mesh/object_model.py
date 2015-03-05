@@ -7,3 +7,6 @@ class ObjectModel:
 
     def get_triangles(self):
         return self.triangles
+
+    def set_triangles(self, triangles):
+        self.triangles = triangles

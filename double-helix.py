@@ -5,6 +5,7 @@ from mesh.generator import Generator
 from mesh.shape_primitives import Circle
 from mesh.object_model import ObjectModel
 from mesh.shape_model import ShapeModel
+from mesh.mesh_utils import MeshUtils
 from mesh.shape_utils import ShapeUtils
 from objects.tee_pipe import TeePipe
 from objects.joined_pipe import JoinedPipe
@@ -72,6 +73,10 @@ obj.add_triangles(
     right.get_triangles() + left.get_triangles() +
     first_right.get_triangles() + first_left.get_triangles()
 )
+
+# Twist shape
+triangles = obj.get_triangles()
+obj.set_triangles(MeshUtils.twist_mesh(triangles, 'Z', 100))
 
 # generate a file
 generator = Generator()

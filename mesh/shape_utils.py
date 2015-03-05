@@ -160,6 +160,17 @@ class ShapeUtils:
         return (x, y, z)
 
     @staticmethod
+    def get_rotatev_func(axis):
+        if axis == 'X':
+            return ShapeUtils.rotatev_x
+        elif axis == 'Y':
+            return ShapeUtils.rotatev_y
+        elif axis == 'Z':
+            return ShapeUtils.rotatev_z
+        else:
+            return None
+
+    @staticmethod
     def rotatev(vector, theta, index_1, index_2):
         new_vector = [vector[0], vector[1], vector[2]]
 
