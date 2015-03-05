@@ -56,8 +56,8 @@ for i in range(10):
         s2.translate(-5, 0, z)
 
         obj.add_triangles(
-            ShapeUtils.stitch_shapes(right, s1) +
-            ShapeUtils.stitch_shapes(left, s2)
+            ShapeUtils.stitch_shapes(s1, right) +
+            ShapeUtils.stitch_shapes(s2, left)
         )
 
         right = s1
