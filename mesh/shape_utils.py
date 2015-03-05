@@ -1,6 +1,6 @@
 import math
 
-class MeshUtils:
+class ShapeUtils:
 
     @staticmethod
     def stitch_shapes(s1, s2, align_axis = None):
@@ -8,7 +8,7 @@ class MeshUtils:
             print "#ERROR: Can't merge empty shape."
 
         # align shapes
-        dx, dy, dz = MeshUtils._calculate_shift(s1, s2, align_axis)
+        dx, dy, dz = ShapeUtils._calculate_shift(s1, s2, align_axis)
         s1.translate(dx, dy, dz)
 
         # stitch shapes together
@@ -16,11 +16,11 @@ class MeshUtils:
         edge_pool = s1.get_edges() + s2.get_edges()
 
         # create a new edge joining two shapes
-        current_edge = MeshUtils._get_closest_vertices(s1, s2)
+        current_edge = ShapeUtils._get_closest_vertices(s1, s2)
 
         # stitch the shapes together with triangles
         while len(edge_pool) > 0:
-            current_edge = MeshUtils._form_triangle(
+            current_edge = ShapeUtils._form_triangle(
                 triangles, s1, current_edge, edge_pool)
 
         # unalign shapes
@@ -30,8 +30,8 @@ class MeshUtils:
 
     @staticmethod
     def _calculate_shift(s1, s2, align_axis):
-        x1, y1, z1 = MeshUtils.find_center(s1)
-        x2, y2, z2 = MeshUtils.find_center(s2)
+        x1, y1, z1 = ShapeUtils.find_center(s1)
+        x2, y2, z2 = ShapeUtils.find_center(s2)
         dx, dy, dz = (0, 0, 0)
 
         if align_axis == 'X':
@@ -175,13 +175,12 @@ class MeshUtils:
 
     @staticmethod
     def rotatev_x(vector, theta):
-        return MeshUtils.rotatev(vector, theta, 2, 1)
+        return ShapeUtils.rotatev(vector, theta, 2, 1)
 
     @staticmethod
     def rotatev_y(vector, theta):
-        return MeshUtils.rotatev(vector, theta, 0, 2)
+        return ShapeUtils.rotatev(vector, theta, 0, 2)
 
     @staticmethod
     def rotatev_z(vector, theta):
-        return MeshUtils.rotatev(vector, theta, 1, 0)
-
+        return ShapeUtils.rotatev(vector, theta, 1, 0)

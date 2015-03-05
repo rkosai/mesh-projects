@@ -1,7 +1,7 @@
 import math
 from part import Part
 from tee_pipe import TeePipe
-from mesh.mesh_utils import MeshUtils
+from mesh.shape_utils import ShapeUtils
 
 class JoinedPipe(Part):
     def __init__(self, radius):
@@ -25,7 +25,7 @@ class JoinedPipe(Part):
 
         # Set up triangles
         self.triangles = p1.get_triangles() + p2.get_triangles() + \
-                         MeshUtils.stitch_shapes(t2, t1)
+                         ShapeUtils.stitch_shapes(t2, t1)
 
         self.right = p1
         self.left = p2

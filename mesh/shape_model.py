@@ -1,6 +1,6 @@
 import copy
 import math
-from mesh_utils import MeshUtils
+from shape_utils import ShapeUtils
 
 class ShapeModel():
     def __init__(self):
@@ -52,19 +52,19 @@ class ShapeModel():
 
     def translate(self, dx, dy, dz):
         for v in self.vectors:
-            v[0], v[1], v[2] = MeshUtils.translate_v(v, dx, dy, dz)
+            v[0], v[1], v[2] = ShapeUtils.translate_v(v, dx, dy, dz)
 
     def rotateX(self, theta):
         for v in self.vectors:
-            v[0], v[1], v[2] = MeshUtils.rotatev_x(v, theta)
+            v[0], v[1], v[2] = ShapeUtils.rotatev_x(v, theta)
 
     def rotateY(self, theta):
         for v in self.vectors:
-            v[0], v[1], v[2] = MeshUtils.rotatev_y(v, theta)
+            v[0], v[1], v[2] = ShapeUtils.rotatev_y(v, theta)
 
     def rotateZ(self, theta):
         for v in self.vectors:
-            v[0], v[1], v[2] = MeshUtils.rotatev_z(v, theta)
+            v[0], v[1], v[2] = ShapeUtils.rotatev_z(v, theta)
 
     def get_triangles(self):
         return self.triangles

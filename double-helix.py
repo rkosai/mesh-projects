@@ -5,7 +5,7 @@ from mesh.generator import Generator
 from mesh.shape_primitives import Circle
 from mesh.object_model import ObjectModel
 from mesh.shape_model import ShapeModel
-from mesh.mesh_utils import MeshUtils
+from mesh.shape_utils import ShapeUtils
 from objects.tee_pipe import TeePipe
 from objects.joined_pipe import JoinedPipe
 
@@ -31,8 +31,8 @@ for i in range(10):
 
     if (right is not None):
         obj.add_triangles(
-            MeshUtils.stitch_shapes(right, p.get_right().get_input(), 'Z') +
-            MeshUtils.stitch_shapes(left, p.get_left().get_input(), 'Z')
+            ShapeUtils.stitch_shapes(right, p.get_right().get_input(), 'Z') +
+            ShapeUtils.stitch_shapes(left, p.get_left().get_input(), 'Z')
         )
     else:
         first_right = p.get_right().get_input()
@@ -55,8 +55,8 @@ for i in range(10):
         s2.translate(-5, 0, z)
 
         obj.add_triangles(
-            MeshUtils.stitch_shapes(right, s1, 'Z') +
-            MeshUtils.stitch_shapes(left, s2, 'Z')
+            ShapeUtils.stitch_shapes(right, s1, 'Z') +
+            ShapeUtils.stitch_shapes(left, s2, 'Z')
         )
 
         right = s1

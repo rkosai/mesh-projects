@@ -1,5 +1,5 @@
 from object_model import ObjectModel
-from mesh_utils import MeshUtils
+from shape_utils import ShapeUtils
 from shape_model import ShapeModel
 from shape_primitives import Polygon, Circle
 
@@ -12,7 +12,7 @@ class DemoFactory:
         obj = ObjectModel()
         obj.add_triangles(s1.get_triangles())
         obj.add_triangles(s2.get_triangles())
-        obj.add_triangles(MeshUtils.stitch_shapes(s1, s2))
+        obj.add_triangles(ShapeUtils.stitch_shapes(s1, s2))
 
         return obj
 

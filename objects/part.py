@@ -1,4 +1,4 @@
-from mesh.mesh_utils import MeshUtils
+from mesh.shape_utils import ShapeUtils
 class Part:
     def __init__(self):
         self.triangles = []
@@ -20,22 +20,22 @@ class Part:
             self.triangles[i] = new_triangle
 
     def translate(self, dx, dy, dz):
-        self._apply_to_vectors(MeshUtils.translate_v, (dx, dy, dz))
+        self._apply_to_vectors(ShapeUtils.translate_v, (dx, dy, dz))
         for shape in self.shapes:
             shape.translate(dx, dy, dz)
 
     def rotateX(self, theta):
-        self._apply_to_vectors(MeshUtils.rotatev_x, (theta,))
+        self._apply_to_vectors(ShapeUtils.rotatev_x, (theta,))
         for shape in self.shapes:
             shape.rotateX(theta)
 
     def rotateY(self, theta):
-        self._apply_to_vectors(MeshUtils.rotatev_y, (theta,))
+        self._apply_to_vectors(ShapeUtils.rotatev_y, (theta,))
         for shape in self.shapes:
             shape.rotateY(theta)
 
     def rotateZ(self, theta):
-        self._apply_to_vectors(MeshUtils.rotatev_z, (theta,))
+        self._apply_to_vectors(ShapeUtils.rotatev_z, (theta,))
         for shape in self.shapes:
             shape.rotateZ(theta)
 

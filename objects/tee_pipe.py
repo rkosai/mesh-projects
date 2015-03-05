@@ -1,6 +1,6 @@
 import math
 from mesh.shape_model import ShapeModel
-from mesh.mesh_utils import MeshUtils
+from mesh.shape_utils import ShapeUtils
 from mesh.shape_primitives import Circle
 from part import Part
 
@@ -79,9 +79,9 @@ class TeePipe(Part):
 
         int_3.close_vectors()
 
-        self.triangles += MeshUtils.stitch_shapes(int_1, self.input)
-        self.triangles += MeshUtils.stitch_shapes(self.output, int_2)
-        self.triangles += MeshUtils.stitch_shapes(int_3, self.tap)
+        self.triangles += ShapeUtils.stitch_shapes(int_1, self.input)
+        self.triangles += ShapeUtils.stitch_shapes(self.output, int_2)
+        self.triangles += ShapeUtils.stitch_shapes(int_3, self.tap)
 
     def get_input(self):
         return self.input
