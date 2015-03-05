@@ -23,6 +23,7 @@ TILT = math.pi / 10
 
 obj = ObjectModel()
 
+first_left, first_right = (None, None)
 left, right = (None, None)
 
 theta = 0
@@ -41,6 +42,9 @@ for i in range(10):
             MeshUtils.stitch_shapes(right, p.get_right().get_input(), 'Z') +
             MeshUtils.stitch_shapes(left, p.get_left().get_input(), 'Z')
         )
+    else:
+        first_right = p.get_right().get_input()
+        first_left = p.get_left().get_input()
 
     top = 10 * i + PIPE_RADIUS
 
@@ -68,6 +72,17 @@ for i in range(10):
 
         right = s1
         left = s2
+
+right.fill_internal_edges()
+left.fill_internal_edges()
+
+first_right.fill_internal_edges()
+first_left.fill_internal_edges()
+
+obj.add_triangles(
+    right.get_triangles() + left.get_triangles() +
+    first_right.get_triangles() + first_left.get_triangles()
+)
 
 # generate a file
 generator = Generator()
