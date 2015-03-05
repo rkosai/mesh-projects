@@ -11,13 +11,8 @@ from objects.joined_pipe import JoinedPipe
 
 PIPE_RADIUS = 1.2
 INTER_SIZE = 8
-SHIFT_ANGLE = math.pi / 10
-PIPES_PER_ROTATION = 8
 
 distance = 10 - 2 * PIPE_RADIUS
-theta_distance = 2 * math.pi / PIPES_PER_ROTATION
-
-TILT = math.pi / 10
 
 ##################################################
 
@@ -28,12 +23,9 @@ left, right = (None, None)
 
 theta = 0
 for i in range(10):
-    theta = 2 * math.pi * i / PIPES_PER_ROTATION
-
     # Make pipe
-    p = JoinedPipe(PIPE_RADIUS, TILT)
+    p = JoinedPipe(PIPE_RADIUS)
     p.translate(0, 0, 10 * i)
-    p.rotateZ(theta)
 
     obj.add_triangles(p.get_triangles())
 
@@ -53,17 +45,14 @@ for i in range(10):
 
     # Make connectors
     for j in range(1, INTER_SIZE):
-        theta_prime = theta + theta_distance * j / INTER_SIZE
         z = top + distance * j / INTER_SIZE
         s1 = Circle(PIPE_RADIUS, True)
         s1.close_vectors()
         s1.translate(5, 0, z)
-        s1.rotateZ(theta_prime)
 
         s2 = Circle(PIPE_RADIUS, True)
         s2.close_vectors()
         s2.translate(-5, 0, z)
-        s2.rotateZ(theta_prime)
 
         obj.add_triangles(
             MeshUtils.stitch_shapes(right, s1, 'Z') +

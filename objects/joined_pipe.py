@@ -4,18 +4,16 @@ from tee_pipe import TeePipe
 from mesh.mesh_utils import MeshUtils
 
 class JoinedPipe(Part):
-    def __init__(self, radius, shift):
+    def __init__(self, radius):
         Part.__init__(self)
 
         # Right side
         p1 = TeePipe(radius)
-        p1.rotateX(shift)
         p1.rotateZ(math.pi)
         p1.translate(5, 0, 0)
 
         # Left side
         p2 = TeePipe(radius)
-        p2.rotateX(shift)
         p2.translate(-5, 0, 0)
 
         # Register external shapes
