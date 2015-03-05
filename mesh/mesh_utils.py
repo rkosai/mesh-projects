@@ -11,11 +11,11 @@ class MeshUtils:
         for triangle in triangles:
             new_t = []
             for v in triangle:
-                if axis == 'X':
+                if axis == ShapeUtils.X:
                     index = v[0]
-                elif axis == 'Y':
+                elif axis == ShapeUtils.Y:
                     index = v[1]
-                elif axis == 'Z':
+                elif axis == ShapeUtils.Z:
                     index = v[2]
 
                 rotation = (index % dpt) / float(dpt) * 2 * math.pi

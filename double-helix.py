@@ -32,8 +32,8 @@ for i in range(10):
 
     if (right is not None):
         obj.add_triangles(
-            ShapeUtils.stitch_shapes(right, p.get_right().get_input(), 'Z') +
-            ShapeUtils.stitch_shapes(left, p.get_left().get_input(), 'Z')
+            ShapeUtils.stitch_shapes(right, p.get_right().get_input()) +
+            ShapeUtils.stitch_shapes(left, p.get_left().get_input())
         )
     else:
         first_right = p.get_right().get_input()
@@ -56,8 +56,8 @@ for i in range(10):
         s2.translate(-5, 0, z)
 
         obj.add_triangles(
-            ShapeUtils.stitch_shapes(right, s1, 'Z') +
-            ShapeUtils.stitch_shapes(left, s2, 'Z')
+            ShapeUtils.stitch_shapes(right, s1) +
+            ShapeUtils.stitch_shapes(left, s2)
         )
 
         right = s1
@@ -76,7 +76,7 @@ obj.add_triangles(
 
 # Twist shape
 triangles = obj.get_triangles()
-obj.set_triangles(MeshUtils.twist_mesh(triangles, 'Z', 100))
+obj.set_triangles(MeshUtils.twist_mesh(triangles, ShapeUtils.Z, 100))
 
 # generate a file
 generator = Generator()

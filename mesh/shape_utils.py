@@ -1,6 +1,9 @@
 import math
 
 class ShapeUtils:
+    X = 'X'
+    Y = 'Y'
+    Z = 'Z'
 
     @staticmethod
     def stitch_shapes(s1, s2, align_axis = None):
@@ -34,13 +37,13 @@ class ShapeUtils:
         x2, y2, z2 = ShapeUtils.find_center(s2)
         dx, dy, dz = (0, 0, 0)
 
-        if align_axis == 'X':
+        if align_axis == ShapeUtils.X:
             dy = y2 - y1
             dz = z2 - z1
-        elif align_axis == 'Y':
+        elif align_axis == ShapeUtils.Y:
             dx = x2 - x1
             dz = z2 - z1
-        elif align_axis == 'Z':
+        elif align_axis == ShapeUtils.Z:
             dx = x2 - x1
             dy = y2 - y1
 
