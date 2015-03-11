@@ -12,17 +12,14 @@ class TeePipe(Part):
 
         # basic pipes
         self.input = Circle(radius, False)
-        self.input.close_vectors()
         self.input.translate(0, 0, -1 * radius)
         self.register_external_shape(self.input)
 
         self.output = Circle(radius, True)
-        self.output.close_vectors()
         self.output.translate(0, 0, radius)
         self.register_external_shape(self.output)
 
         self.tap = Circle(radius, True)
-        self.tap.close_vectors()
         self.tap.rotateY(3 * math.pi / 2)
         self.tap.translate(radius, 0, 0)
         self.register_external_shape(self.tap)

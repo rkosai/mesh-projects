@@ -4,10 +4,8 @@ import math
 from mesh.generator import Generator
 from mesh.shape_primitives import Circle
 from mesh.object_model import ObjectModel
-from mesh.shape_model import ShapeModel
 from mesh.mesh_utils import MeshUtils
 from mesh.shape_utils import ShapeUtils
-from objects.tee_pipe import TeePipe
 from objects.joined_pipe import JoinedPipe
 
 PIPE_RADIUS = 1.2
@@ -48,11 +46,9 @@ for i in range(10):
     for j in range(1, INTER_SIZE):
         z = top + distance * j / INTER_SIZE
         s1 = Circle(PIPE_RADIUS, True)
-        s1.close_vectors()
         s1.translate(5, 0, z)
 
         s2 = Circle(PIPE_RADIUS, True)
-        s2.close_vectors()
         s2.translate(-5, 0, z)
 
         obj.add_triangles(

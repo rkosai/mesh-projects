@@ -19,7 +19,6 @@ class DemoFactory:
     def make_cube(self):
         def make_square(z, up):
             sm = Polygon(1, 4, up)
-            sm.close_vectors()
             sm.fill_internal_edges()
             sm.translate(0, 0, z)
             return sm
@@ -29,7 +28,6 @@ class DemoFactory:
     def make_oct_prism(self):
         def make_oct(z, up):
             sm = Polygon(1, 8, up)
-            sm.close_vectors()
             sm.fill_internal_edges()
             sm.translate(0, 0, z)
             return sm
@@ -39,7 +37,6 @@ class DemoFactory:
     def make_cylinder(self):
         def make_circle(z, up):
             sm = Circle(1, up)
-            sm.close_vectors()
             sm.fill_internal_edges()
             sm.translate(0, 0, z)
             return sm

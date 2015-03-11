@@ -13,8 +13,9 @@ class Polygon(ShapeModel):
             theta = 2 * math.pi * i / points
             self.add_vector(r * math.cos(theta), r * math.sin(theta), 0)
 
+        self.close_vectors()
+
 class Circle(Polygon):
     def __init__(self, r, up):
         Polygon.__init__(self, r, 50, up)
-
 
