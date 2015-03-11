@@ -10,15 +10,14 @@ from objects.joined_pipe import JoinedPipe
 
 PIPE_RADIUS = 1.2
 INTER_SIZE = 8
-
-distance = 10 - 2 * PIPE_RADIUS
+DISTANCE = 10 - 2 * PIPE_RADIUS
 
 ##################################################
 
 obj = ObjectModel()
 
-first_left, first_right = (None, None)
 left, right = (None, None)
+left_0, right_0 = (None, None)
 
 theta = 0
 for i in range(10):
@@ -34,8 +33,8 @@ for i in range(10):
             ShapeUtils.stitch_shapes(left, p.get_left().get_input())
         )
     else:
-        first_right = p.get_right().get_input()
-        first_left = p.get_left().get_input()
+        right_0 = p.get_right().get_input()
+        left_0 = p.get_left().get_input()
 
     top = 10 * i + PIPE_RADIUS
 
@@ -44,7 +43,7 @@ for i in range(10):
 
     # Make connectors
     for j in range(1, INTER_SIZE):
-        z = top + distance * j / INTER_SIZE
+        z = top + DISTANCE * j / INTER_SIZE
         s1 = Circle(PIPE_RADIUS, True)
         s1.translate(5, 0, z)
 
@@ -59,16 +58,10 @@ for i in range(10):
         right = s1
         left = s2
 
-right.fill_internal_edges()
-left.fill_internal_edges()
-
-first_right.fill_internal_edges()
-first_left.fill_internal_edges()
-
-obj.add_triangles(
-    right.get_triangles() + left.get_triangles() +
-    first_right.get_triangles() + first_left.get_triangles()
-)
+# Build end caps
+for end in (right, left, right_0, left_0):
+    end.fill_internal_edges()
+    obj.add_triangles(end.get_triangles())
 
 # Twist shape
 triangles = obj.get_triangles()
