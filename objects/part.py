@@ -39,5 +39,5 @@ class Part:
         for shape in self.shapes:
             shape.rotateZ(theta)
 
-    def get_triangles(self):
+    def get_mesh(self):
         return self.triangles

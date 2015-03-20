@@ -24,7 +24,7 @@ class JoinedPipe(Part):
         t2 = p2.tap
 
         # Set up triangles
-        self.triangles = p1.get_triangles() + p2.get_triangles() + \
+        self.triangles = p1.get_mesh() + p2.get_mesh() + \
                          ShapeUtils.stitch_shapes(t2, t1)
 
         self.right = p1

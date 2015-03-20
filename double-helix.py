@@ -28,7 +28,7 @@ for z in range(0, 100, 10):
     s2.translate(-5, 0, z + PIPE_RADIUS)
 
     for part in [p, s1, s2]:
-        obj.add_mesh(part.get_triangles())
+        obj.add_mesh(part.get_mesh())
 
 # Build end caps
 for end in (s1.top, s2.top, right_0, left_0):
