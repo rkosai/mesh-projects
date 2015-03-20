@@ -2,6 +2,9 @@ import math
 from shape_utils import ShapeUtils
 
 class MeshUtils:
+    X = 'X'
+    Y = 'Y'
+    Z = 'Z'
 
     @staticmethod
     def twist_mesh(triangles, axis, dpt):

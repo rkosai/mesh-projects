@@ -10,3 +10,7 @@ class ObjectModel:
 
     def set_mesh(self, triangles):
         self.triangles = triangles
+
+    def apply_transform(self, function, params):
+        new_triangles = function(self.triangles, *params)
+        self.triangles = new_triangles
