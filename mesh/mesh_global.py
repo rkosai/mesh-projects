@@ -1,2 +1,2 @@
 class Global:
-    CIRCLE_RESOLUTION = 40
+    CIRCLE_RESOLUTION = 50
