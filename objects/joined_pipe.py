@@ -20,8 +20,8 @@ class JoinedPipe(Part):
         self.register_external_parts([p1, p2])
 
         # Join pipes
-        t1 = p1.get_tap()
-        t2 = p2.get_tap()
+        t1 = p1.tap
+        t2 = p2.tap
 
         # Set up triangles
         self.triangles = p1.get_triangles() + p2.get_triangles() + \
@@ -29,9 +29,3 @@ class JoinedPipe(Part):
 
         self.right = p1
         self.left = p2
-
-    def get_right(self):
-        return self.right
-
-    def get_left(self):
-        return self.left

@@ -2,10 +2,11 @@ import math
 from mesh.shape_model import ShapeModel
 from mesh.shape_utils import ShapeUtils
 from mesh.shape_primitives import Circle
+from mesh.mesh_global import Global
+
 from part import Part
 
 class TeePipe(Part):
-    POINTS = 50
 
     def __init__(self, radius):
         Part.__init__(self)
@@ -32,8 +33,8 @@ class TeePipe(Part):
         half_vectors_2 = []
         inner_point = None
 
-        for i in range(TeePipe.POINTS):
-            theta = 2 * math.pi * i / TeePipe.POINTS
+        for i in range(Global.CIRCLE_RESOLUTION):
+            theta = 2 * math.pi * i / float(Global.CIRCLE_RESOLUTION)
             x = radius * math.cos(theta)
             y = radius * math.sin(theta)
 
@@ -79,12 +80,3 @@ class TeePipe(Part):
         self.triangles += ShapeUtils.stitch_shapes(int_1, self.input)
         self.triangles += ShapeUtils.stitch_shapes(self.output, int_2)
         self.triangles += ShapeUtils.stitch_shapes(int_3, self.tap)
-
-    def get_input(self):
-        return self.input
-
-    def get_output(self):
-        return self.output
-
-    def get_tap(self):
-        return self.tap

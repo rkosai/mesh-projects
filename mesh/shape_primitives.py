@@ -1,3 +1,4 @@
+from mesh_global import Global
 from shape_model import ShapeModel
 import math
 
@@ -17,5 +18,5 @@ class Polygon(ShapeModel):
 
 class Circle(Polygon):
     def __init__(self, r, up):
-        Polygon.__init__(self, r, 50, up)
+        Polygon.__init__(self, r, Global.CIRCLE_RESOLUTION, up)
 
