@@ -12,7 +12,7 @@ class Generator:
         def _scale(l):
             return tuple([x * self.scale for x in l])
 
-        for t in model.get_triangles():
+        for t in model.get_mesh():
             print "facet normal %e %e %e" % (0, 0, 0)
             print"outer loop"
             print "vertex %e %e %e" % _scale(t[0])

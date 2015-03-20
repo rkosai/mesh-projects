@@ -2,11 +2,11 @@ class ObjectModel:
     def __init__(self):
         self.triangles = []
 
-    def add_triangles(self, t):
+    def add_mesh(self, t):
         self.triangles += t
 
-    def get_triangles(self):
+    def get_mesh(self):
         return self.triangles
 
-    def set_triangles(self, triangles):
+    def set_mesh(self, triangles):
         self.triangles = triangles

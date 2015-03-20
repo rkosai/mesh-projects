@@ -10,9 +10,9 @@ class DemoFactory:
         s2 = func(1, True)
 
         obj = ObjectModel()
-        obj.add_triangles(s1.get_triangles())
-        obj.add_triangles(s2.get_triangles())
-        obj.add_triangles(ShapeUtils.stitch_shapes(s1, s2))
+        obj.add_mesh(s1.get_triangles())
+        obj.add_mesh(s2.get_triangles())
+        obj.add_mesh(ShapeUtils.stitch_shapes(s1, s2))
 
         return obj
 

@@ -1,11 +1,11 @@
 #!/usr/bin/python
 
 from mesh.generator import Generator
-from mesh.shape_primitives import Circle
-from mesh.object_model import ObjectModel
 from mesh.mesh_utils import MeshUtils
+from mesh.object_model import ObjectModel
 from mesh.shape_utils import ShapeUtils
 from objects.joined_pipe import JoinedPipe
+from objects.segmented_pipe import SegmentedPipe
 
 PIPE_RADIUS = 1.2
 INTER_SIZE = 8
@@ -17,42 +17,31 @@ obj = ObjectModel()
 left_0, right_0 = (None, None)
 
 for i in range(10):
-    top = 10 * i + PIPE_RADIUS
+    z = 10 * i
 
     # Make pipe
     p = JoinedPipe(PIPE_RADIUS)
-    p.translate(0, 0, 10 * i)
-    obj.add_triangles(p.get_triangles())
+    p.translate(0, 0, z)
+    obj.add_mesh(p.get_triangles())
 
     if right_0 is None:
         right_0, left_0 = (p.right.input, p.left.input)
 
-    right = p.right.output
-    left = p.left.output
+    s1 = SegmentedPipe(PIPE_RADIUS, DISTANCE, 8)
+    s2 = SegmentedPipe(PIPE_RADIUS, DISTANCE, 8)
+    s1.translate(5, 0, z + PIPE_RADIUS)
+    s2.translate(-5, 0, z + PIPE_RADIUS)
 
-    # Make connectors
-    for j in range(1, INTER_SIZE + 1):
-        z = top + DISTANCE * j / INTER_SIZE
-
-        s1 = Circle(PIPE_RADIUS, True)
-        s2 = Circle(PIPE_RADIUS, True)
-        s1.translate(5, 0, z)
-        s2.translate(-5, 0, z)
-
-        obj.add_triangles(ShapeUtils.stitch_shapes(s1, right))
-        obj.add_triangles(ShapeUtils.stitch_shapes(s2, left))
-
-        right = s1
-        left = s2
+    obj.add_mesh(s1.get_triangles() + s2.get_triangles())
 
 # Build end caps
-for end in (right, left, right_0, left_0):
+for end in (s1.top, s2.top, right_0, left_0):
     end.fill_internal_edges()
-    obj.add_triangles(end.get_triangles())
+    obj.add_mesh(end.get_triangles())
 
 # Twist shape
-triangles = obj.get_triangles()
-obj.set_triangles(MeshUtils.twist_mesh(triangles, ShapeUtils.Z, 100))
+triangles = obj.get_mesh()
+obj.set_mesh(MeshUtils.twist_mesh(triangles, ShapeUtils.Z, 100))
 
 # generate a file
 generator = Generator()
