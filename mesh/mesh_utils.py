@@ -29,6 +29,29 @@ class MeshUtils:
         return new_triangles
 
     @staticmethod
+    def _apply_vector_function(triangles, vfunc, params):
+        output = []
+        for t in triangles:
+            output.append([ vfunc(v, *params)for v in t ])
+        return output
+
+    @staticmethod
+    def translate(triangles, dx, dy, dz):
+        return MeshUtils._apply_vector_function(
+            triangles, ShapeUtils.translate_v, (dx, dy, dz)
+        )
+
+    @staticmethod
+    def rotate_x(triangles, theta):
+        # TBD
+        return triangles
+
+    @staticmethod
+    def spiral(triangles, axis, height_per_revolution, gain):
+        # TBD
+        return triangles
+
+    @staticmethod
     def _find_midpoint(p1, p2):
         x = (p1[0] + p2[0]) / float(2)
         y = (p1[1] + p2[1]) / float(2)

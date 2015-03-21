@@ -4,17 +4,17 @@ from tee_pipe import TeePipe
 from mesh.shape_utils import ShapeUtils
 
 class JoinedPipe(Part):
-    def __init__(self, radius):
+    def __init__(self, radius, half_length):
         Part.__init__(self)
 
         # Right side
         p1 = TeePipe(radius)
         p1.rotateZ(math.pi)
-        p1.translate(5, 0, 0)
+        p1.translate(half_length, 0, 0)
 
         # Left side
         p2 = TeePipe(radius)
-        p2.translate(-5, 0, 0)
+        p2.translate(-1 * half_length, 0, 0)
 
         # Register external shapes
         self.register_external_parts([p1, p2])
