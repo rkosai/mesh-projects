@@ -14,6 +14,8 @@ class SegmentedPipe(Part):
 
             self.top = Circle(radius, True)
             self.top.translate(0, 0, z)
+            self.register_external_shape(self.top)
+
             self.triangles += ShapeUtils.stitch_shapes(self.top, current)
 
             current = self.top

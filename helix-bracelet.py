@@ -10,14 +10,19 @@ from objects.segmented_pipe import SegmentedPipe
 PIPE_RADIUS = 0.7
 LENGTH = 7  # Between pipes
 HALF_WIDTH = 3.75  # Betwen strands
+BRACELET_RADIUS = 75 / float(2)
+REVOLUTIONS = 2
+GAIN = 15  # Millimeters per revolution
+
 SEGMENT_LENGTH = LENGTH - 2 * PIPE_RADIUS
+LENGTH_UNITS = 2 * math.pi * BRACELET_RADIUS / LENGTH
 
 ##################################################
 
 obj = ObjectModel()
 left_0, right_0 = (None, None)
 
-for z in range(0, 10 * LENGTH, LENGTH):
+for z in range(0, int(LENGTH_UNITS * REVOLUTIONS) * LENGTH, LENGTH):
     p = JoinedPipe(PIPE_RADIUS, HALF_WIDTH)
     p.translate(0, 0, z)
 
@@ -40,6 +45,8 @@ for end in (s1.top, s2.top, right_0, left_0):
 
 # Twist shape
 obj.apply_transform(MeshUtils.twist_mesh, (MeshUtils.Z, LENGTH * 10))
+obj.apply_transform(MeshUtils.translate, (0, 0, BRACELET_RADIUS))
+obj.apply_transform(MeshUtils.spiral, (MeshUtils.Y, LENGTH_UNITS, GAIN))
 
 # generate a file
 generator = Generator()
