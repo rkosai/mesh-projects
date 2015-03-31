@@ -43,13 +43,61 @@ class MeshUtils:
 
     @staticmethod
     def rotate_x(triangles, theta):
-        # TBD
-        return triangles
+        return MeshUtils._apply_vector_function(
+            triangles, ShapeUtils.rotatev_x, (theta,)
+        )
+
+    @staticmethod
+    def rotate_y(triangles, theta):
+        return MeshUtils._apply_vector_function(
+            triangles, ShapeUtils.rotatev_y, (theta,)
+        )
+
+    @staticmethod
+    def rotate_z(triangles, theta):
+        return MeshUtils._apply_vector_function(
+            triangles, ShapeUtils.rotatev_z, (theta,)
+        )
+
+    @staticmethod
+    def get_rotate_func(axis):
+        if axis == 'X':
+            return MeshUtils.rotate_x
+        elif axis == 'Y':
+            return MeshUtils.rotate_y
+        elif axis == 'Z':
+            return MeshUtils.rotate_z
+        else:
+            return None
 
     @staticmethod
     def spiral(triangles, axis, height_per_revolution, gain):
-        # TBD
-        return triangles
+        output = []
+        for t in triangles:
+            new_t = []
+            for v in t:
+                x, y, z = (v[0], v[1], 0)
+                dz = v[2]
+
+                fraction = dz / float(height_per_revolution)
+
+                # rotate in proportion to z value
+                theta = 2 * math.pi * fraction
+                func = ShapeUtils.get_rotatev_func(axis)
+                new_v = func([x, y, z], theta)
+
+                # gain in proportion to z value
+                shift = [
+                    gain[0] * fraction,
+                    gain[1] * fraction,
+                    gain[2] * fraction
+                ]
+
+                new_t.append(ShapeUtils.translate_v(new_v, *shift))
+
+            output.append(new_t)
+
+        return output
 
     @staticmethod
     def _find_midpoint(p1, p2):
